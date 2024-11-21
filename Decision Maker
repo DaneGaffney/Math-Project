@@ -1,0 +1,47 @@
+
+def ask_question(question, options):
+    """
+    Function to ask a yes/no question and return True/False based on user input.
+    The options parameter is a dictionary with the user response as the key and the corresponding boolean value as the value.
+    """
+    while True:
+        print(question)
+        print("Options:", ", ".join(options.keys()))
+        response = input("Please choose an option: ").lower()
+        if response in options:
+            return options[response]
+        else:
+            print("Invalid response, please try again.")
+
+def decision_assistant():
+    """
+    A decision-making assistant that helps users choose between two options.
+    """
+    print("Welcome to the Decision-Making Assistant!")
+    print("Please answer the following questions to help you make a decision.")
+
+    # Step 1: Question about time constraints
+    time_constraint = ask_question(
+        "Do you have time to invest in a long task?",
+        {"yes": True, "no": False}
+    )
+
+    # Step 2: Question about interest level
+    interest_level = ask_question(
+        "Are you interested in something fun?",
+        {"yes": True, "no": False}
+    )
+
+    # Step 3: Final decision logic
+    if time_constraint and interest_level:
+        print("You have time and interest! You should go for a new project or a hobby!")
+    elif time_constraint and not interest_level:
+        print("You have time, but not much interest. Maybe work on something productive!")
+    elif not time_constraint and interest_level:
+        print("You don't have time, but you're interested. You should try a short fun activity!")
+    else:
+        print("You don't have time or interest. Maybe take a break or relax!")
+
+# Run the decision assistant
+decision_assistant()
+
