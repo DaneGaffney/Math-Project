@@ -1,47 +1,27 @@
 
-def ask_question(question, options):
-    """
-    Function to ask a yes/no question and return True/False based on user input.
-    The options parameter is a dictionary with the user response as the key and the corresponding boolean value as the value.
-    """
-    while True:
-        print(question)
-        print("Options:", ", ".join(options.keys()))
-        response = input("Please choose an option: ").lower()
-        if response in options:
-            return options[response]
-        else:
-            print("Invalid response, please try again.")
+# Function to decide if a jacket is needed based on the temperature, wind speed, and weather
+def should_wear_jacket(temp, wind_speed, weather):
+    # If the weather is snowy or rainy, always recommend a coat
+    if weather.lower() in ['snowy', 'rainy']:
+        return "It's snowy or rainy! You should definitely wear a coat."
 
-def decision_assistant():
-    """
-    A decision-making assistant that helps users choose between two options.
-    """
-    print("Welcome to the Decision-Making Assistant!")
-    print("Please answer the following questions to help you make a decision.")
+    # Wind chill factor: if the wind is strong, it can feel colder
+    if wind_speed > 20:  # If wind speed is greater than 20 mph
+        temp -= 5  # Subtract 5°F from the temperature for wind chill effect
+    
+    # Temperature-based decisions
+    if temp < 50:  # Temperature in Fahrenheit (below 50°F)
+        return "It's cold! You should wear a jacket."
+    elif temp < 70:  # Between 50°F and 70°F
+        return "It might be a little chilly, you may want to wear a jacket."
+    else:  # 70°F and above
+        return "It's warm! No need for a jacket."
 
-    # Step 1: Question about time constraints
-    time_constraint = ask_question(
-        "Do you have time to invest in a long task?",
-        {"yes": True, "no": False}
-    )
+# Ask the user for inputs: temperature, wind speed, and weather conditions
+temperature = float(input("Enter the temperature in Fahrenheit: "))
+wind_speed = float(input("Enter the wind speed in mph: "))
+weather = input("Enter the current weather (sunny, rainy, snowy, etc.): ")
 
-    # Step 2: Question about interest level
-    interest_level = ask_question(
-        "Are you interested in something fun?",
-        {"yes": True, "no": False}
-    )
-
-    # Step 3: Final decision logic
-    if time_constraint and interest_level:
-        print("You have time and interest! You should go for a new project or a hobby!")
-    elif time_constraint and not interest_level:
-        print("You have time, but not much interest. Maybe work on something productive!")
-    elif not time_constraint and interest_level:
-        print("You don't have time, but you're interested. You should try a short fun activity!")
-    else:
-        print("You don't have time or interest. Maybe take a break or relax!")
-
-# Run the decision assistant
-decision_assistant()
-
+# Display the recommendation
+recommendation = should_wear_jacket(temperature, wind_speed, weather)
+print(recommendation)
