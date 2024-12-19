@@ -1,27 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clothing Suggestion Based on Weather</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Clothing Suggestion Based on Weather</h1>
 
-# Function to decide if a jacket is needed based on the temperature, wind speed, and weather
-def should_wear_jacket(temp, wind_speed, weather):
-    # If the weather is snowy or rainy, always recommend a coat
-    if weather.lower() in ['snowy', 'rainy']:
-        return "It's snowy or rainy! You should definitely wear a coat."
+        <label for="temperature">Enter Temperature (°C):</label>
+        <input type="number" id="temperature" placeholder="Enter temperature" required>
 
-    # Wind chill factor: if the wind is strong, it can feel colder
-    if wind_speed > 20:  # If wind speed is greater than 20 mph
-        temp -= 5  # Subtract 5°F from the temperature for wind chill effect
-    
-    # Temperature-based decisions
-    if temp < 50:  # Temperature in Fahrenheit (below 50°F)
-        return "It's cold! You should wear a jacket."
-    elif temp < 70:  # Between 50°F and 70°F
-        return "It might be a little chilly, you may want to wear a jacket."
-    else:  # 70°F and above
-        return "It's warm! No need for a jacket."
+        <label for="weather">Select Weather Condition:</label>
+        <select id="weather">
+            <option value="sunny">Sunny</option>
+            <option value="rainy">Rainy</option>
+            <option value="snowy">Snowy</option>
+            <option value="windy">Windy</option>
+            <option value="brisk">Brisk</option>
+        </select>
 
-# Ask the user for inputs: temperature, wind speed, and weather conditions
-temperature = float(input("Enter the temperature in Fahrenheit: "))
-wind_speed = float(input("Enter the wind speed in mph: "))
-weather = input("Enter the current weather (sunny, rainy, snowy, etc.): ")
+        <button onclick="suggestClothes()">Get Suggestion</button>
 
-# Display the recommendation
-recommendation = should_wear_jacket(temperature, wind_speed, weather)
-print(recommendation)
+        <div id="suggestion-output"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
